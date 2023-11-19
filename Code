@@ -1,0 +1,107 @@
+#Select ALL from Products
+SELECT *
+FROM Products;
+
+#SELECT certain columns
+SELECT [Product Name], [List Price], Category
+FROM Products;
+
+#SELECT with AS to save Business Phone's column name by Daytime Phone
+SELECT Company, [State/Province], [Business Phone] AS [Daytime Phone]
+FROM Customers;
+
+#SELECT DISTINCT to eliminate duplicate rows and displays a unique lists of values
+SELECT DISTINCT Customers.[State/Province]
+FROM Customers;
+
+SELECT DISTINCT [Ship City]
+FROM Orders;
+
+#SELECT with WHERE to filter records 
+SELECT [Product Name], [List Price]
+FROM Products
+WHERE [List Price]>50;
+
+SELECT [Customer ID], [Order Date]
+FROM Orders
+WHERE [Order Date] BETWEEN #6/1/2006#AND#6/15/2006#;
+
+SELECT [First Name], [Last Name], City, [Job Title]
+FROM Employees
+WHERE [Job Title]="Sales Representative" AND City IN ("Seattle","Redmond");
+
+SELECT *
+FROM [Order Details]
+WHERE Quantity >(SELECT AVG(Quantity) FROM [Order Details]);
+
+#ORDER BY to sort records
+SELECT Company, [State/Province], City
+FROM Customers
+ORDER BY [State/Province], City DESC;
+
+SELECT [Product Name], [List Price]
+FROM Products
+WHERE ID IN (SELECT DISTINCT [Product ID] FROM [Order Details]
+WHERE Quantity>75)
+ORDER BY [Product Name];
+
+#GROUP BY to collapse a field into its distinct values
+SELECT [Product ID], SUM(Quantity) AS [Quantity Sold]
+FROM [Inventory Transactions]
+WHERE [Transaction type]=2
+GROUP BY [Product ID];
+
+#COUNT 
+SELECT COUNT([Order ID]) AS [Count], [Ship State/Province]
+FROM Orders
+GROUP BY [Ship State/Province];
+
+#UPDATE Dataset
+UPDATE Shippers SET Company = 'Ultra Fast Shippers R Us'
+WHERE ID = 3;
+
+#DELETE records
+DELETE *
+FROM [Order Details]
+WHERE [Order ID] = 44;
+
+#CREATE new tables
+CREATE TABLE Emp (
+EmpNum CHAR(3) PRIMARY KEY,
+EmpLName VARCHAR(15) NOT NULL,
+EmpFName VARCHAR(15) NOT NULL,
+JobCode CHAR(3),
+FOREIGN KEY (JobCode) REFERENCES Job)
+
+#INSERT values into a table
+INSERT INTO Emp
+VALUES (101, 'News', 'John', '502');
+
+#UNION SELECT to unite tables
+SELECT EmpLName, EmpFName from Emp
+UNION SELECT EmpLName, EmpFName from Emp2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
