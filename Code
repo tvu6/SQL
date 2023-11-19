@@ -45,6 +45,18 @@ WHERE ID IN (SELECT DISTINCT [Product ID] FROM [Order Details]
 WHERE Quantity>75)
 ORDER BY [Product Name];
 
+#INNER JOIN to select matching values in tables
+SELECT [Employees Extended].[Employee Name], SUM([Order Details].Quantity) AS SumOfQuantity
+FROM ([Employees Extended] INNER JOIN Orders ON [Employees Extended].ID = Orders.[Employee ID]) INNER JOIN [Order Details] ON Orders.[Order ID] = [Order Details].[Order ID]
+GROUP BY [Employees Extended].[Employee Name]
+ORDER BY [Employees Extended].[Employee Name];
+
+#LEFT JOIN
+SELECT [First Name], [Last Name], [Purchase Order ID]
+FROM Employees LEFT JOIN [Purchase Orders] ON Employees.ID = [Purchase Orders].[Created By]
+ORDER BY [Purchase Order ID];
+
+
 #GROUP BY to collapse a field into its distinct values
 SELECT [Product ID], SUM(Quantity) AS [Quantity Sold]
 FROM [Inventory Transactions]
